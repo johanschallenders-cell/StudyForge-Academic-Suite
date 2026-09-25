@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyForge — All-in-One Academic & GPA Calculator Suite</title>
+    <meta name="description" content="Free weighted & unweighted GPA calculator, final exam grade predictor, and grade converter for High School and College students.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">⚡ StudyForge</div>
+            <nav>
+                <button class="nav-btn active" onclick="switchTab('gpa')">GPA Calculator</button>
+                <button class="nav-btn" onclick="switchTab('final')">Final Exam</button>
+                <button class="nav-btn" onclick="switchTab('converter')">Grade Converter</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Top Banner Ad Placeholder -->
+    <div class="ad-container top-ad">
+        <span class="ad-label">Advertisement</span>
+        <!-- Google AdSense Code will go here -->
+    </div>
+
+    <main class="main-container">
+
+        <!-- TAB 1: GPA CALCULATOR -->
+        <section id="tab-gpa" class="tool-card active-tab">
+            <h1>College & High School GPA Calculator</h1>
+            <p class="subtitle">Calculate your cumulative weighted and unweighted GPA in seconds.</p>
+
+            <div class="calculator-body">
+                <div class="courses-header">
+                    <span>Course Name</span>
+                    <span>Grade</span>
+                    <span>Credits</span>
+                    <span>Type</span>
+                    <span></span>
+                </div>
+                <div id="courses-list">
+                    <!-- Dynamic rows inserted by JS -->
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="addCourseRow()">+ Add Course</button>
+                    <button class="btn btn-primary" onclick="calculateGPA()">Calculate GPA</button>
+                </div>
+
+                <div class="result-box" id="gpa-result" style="display: none;">
+                    <h3>Your Academic Standing</h3>
+                    <div class="gpa-display">
+                        <div>
+                            <span class="gpa-score" id="unweighted-gpa">0.00</span>
+                            <span class="gpa-label">Unweighted GPA</span>
+                        </div>
+                        <div>
+                            <span class="gpa-score" id="weighted-gpa">0.00</span>
+                            <span class="gpa-label">Weighted GPA</span>
+                        </div>
+                    </div>
+                    <p id="gpa-message" class="result-message"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: FINAL EXAM CALCULATOR -->
+        <section id="tab-final" class="tool-card" style="display: none;">
+            <h1>Final Exam Grade Calculator</h1>
+            <p class="subtitle">Find out what score you need on your final exam to reach your target grade.</p>
+
+            <div class="form-group">
+                <label for="current-grade">Current Grade (%)</label>
+                <input type="number" id="current-grade" placeholder="e.g. 85" min="0" max="100">
+            </div>
+            <div class="form-group">
+                <label for="target-grade">Desired Grade (%)</label>
+                <input type="number" id="target-grade" placeholder="e.g. 90" min="0" max="100">
+            </div>
+            <div class="form-group">
+                <label for="final-weight">Final Exam Weight (%)</label>
+                <input type="number" id="final-weight" placeholder="e.g. 20" min="0" max="100">
+            </div>
+
+            <button class="btn btn-primary" onclick="calculateFinalGrade()">Calculate Needed Score</button>
+
+            <div class="result-box" id="final-result" style="display: none;">
+                <h3>Required Final Exam Score</h3>
+                <span class="gpa-score" id="needed-score">0%</span>
+                <p id="final-message" class="result-message"></p>
+            </div>
+        </section>
+
+        <!-- TAB 3: GRADE CONVERTER -->
+        <section id="tab-converter" class="tool-card" style="display: none;">
+            <h1>Grade & Percentage Converter</h1>
+            <p class="subtitle">Convert percentage scores to letter grades and 4.0 scale GPA value.</p>
+
+            <div class="form-group">
+                <label for="percentage-input">Enter Percentage Grade (%)</label>
+                <input type="number" id="percentage-input" placeholder="e.g. 88" min="0" max="100" oninput="convertGrade()">
+            </div>
+
+            <div class="result-box" id="converter-result">
+                <div class="gpa-display">
+                    <div>
+                        <span class="gpa-score" id="converted-letter">A</span>
+                        <span class="gpa-label">Letter Grade</span>
+                    </div>
+                    <div>
+                        <span class="gpa-score" id="converted-gpa">4.0</span>
+                        <span class="gpa-label">4.0 Scale GPA</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- In-Content Ad Placeholder -->
+        <div class="ad-container inline-ad">
+            <span class="ad-label">Advertisement</span>
+        </div>
+
+        <!-- Educational Content Section (Crucial for AdSense SEO) -->
+        <article class="content-section">
+            <h2>Understanding US Academic Grading Systems</h2>
+            <p>Grade Point Average (GPA) is a standardized metric used in American high schools and universities to summarize student academic achievement. It is calculated by converting letter grades (A, B, C, D, F) into a numerical scale, typically ranging from 0.0 to 4.0.</p>
+
+            <h3>Difference Between Weighted and Unweighted GPA</h3>
+            <ul>
+                <li><strong>Unweighted GPA:</strong> Measured on a standard 0.0 to 4.0 scale regardless of course difficulty. An "A" in an introductory class and an "A" in an Advanced Placement (AP) course both yield 4.0 points.</li>
+                <li><strong>Weighted GPA:</strong> Accounts for academic rigor. Honors courses often add 0.5 points (up to 4.5), while AP and IB (International Baccalaureate) courses add 1.0 point (up to 5.0).</li>
+            </ul>
+
+            <h3>How Final Exam Predictors Work</h3>
+            <p>Your overall class grade is calculated using a weighted average formula. The final exam grade calculation formula is:</p>
+            <p><code>Required Score = (Target Grade - (Current Grade × (1 - Exam Weight))) / Exam Weight</code></p>
+        </article>
+
+    </main>
+
+    <!-- Footer & Legal Modals -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 StudyForge Academic Suite. Free Educational Tool for Students.</p>
+            <div class="footer-links">
+                <a href="#" onclick="openModal('modal-privacy')">Privacy Policy</a> |
+                <a href="#" onclick="openModal('modal-terms')">Terms of Service</a> |
+                <a href="#" onclick="openModal('modal-about')">About Us</a> |
+                <a href="#" onclick="openModal('modal-contact')">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LEGAL MODALS (Required for Google AdSense Approval) -->
+    <div id="modal-privacy" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-privacy')">&times;</span>
+            <h2>Privacy Policy</h2>
+            <p>At StudyForge, accessible from our website, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by StudyForge and how we use it.</p>
+            <br>
+            <h3>Google DoubleClick DART Cookie</h3>
+            <p>Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet.</p>
+        </div>
+    </div>
+
+    <div id="modal-terms" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-terms')">&times;</span>
+            <h2>Terms of Service</h2>
+            <p>By accessing StudyForge, you agree to comply with these terms of service. The tools provided are for informational and educational estimation purposes only. Always confirm official grades with your academic institution.</p>
+        </div>
+    </div>
+
+    <div id="modal-about" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-about')">&times;</span>
+            <h2>About StudyForge</h2>
+            <p>StudyForge was created to provide high school and college students with clean, fast, and free academic utilities to track their GPAs and predict exam requirements accurately.</p>
+        </div>
+    </div>
+
+    <div id="modal-contact" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal-contact')">&times;</span>
+            <h2>Contact Us</h2>
+            <p>If you have questions, feedback, or suggestions for new tools, please reach out to us at: <strong>support@studyforge-tools.com</strong></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
